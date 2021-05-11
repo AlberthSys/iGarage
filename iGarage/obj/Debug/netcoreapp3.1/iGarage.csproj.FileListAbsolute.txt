@@ -1,0 +1,12 @@
+/Users/alberthbc/Projects/iGarage/iGarage/bin/Debug/netcoreapp3.1/iGarage.deps.json
+/Users/alberthbc/Projects/iGarage/iGarage/bin/Debug/netcoreapp3.1/iGarage.runtimeconfig.json
+/Users/alberthbc/Projects/iGarage/iGarage/bin/Debug/netcoreapp3.1/iGarage.runtimeconfig.dev.json
+/Users/alberthbc/Projects/iGarage/iGarage/bin/Debug/netcoreapp3.1/iGarage.dll
+/Users/alberthbc/Projects/iGarage/iGarage/bin/Debug/netcoreapp3.1/iGarage.pdb
+/Users/alberthbc/Projects/iGarage/iGarage/obj/Debug/netcoreapp3.1/iGarage.csprojAssemblyReference.cache
+/Users/alberthbc/Projects/iGarage/iGarage/obj/Debug/netcoreapp3.1/iGarage.AssemblyInfoInputs.cache
+/Users/alberthbc/Projects/iGarage/iGarage/obj/Debug/netcoreapp3.1/iGarage.AssemblyInfo.cs
+/Users/alberthbc/Projects/iGarage/iGarage/obj/Debug/netcoreapp3.1/iGarage.csproj.CoreCompileInputs.cache
+/Users/alberthbc/Projects/iGarage/iGarage/obj/Debug/netcoreapp3.1/iGarage.dll
+/Users/alberthbc/Projects/iGarage/iGarage/obj/Debug/netcoreapp3.1/iGarage.pdb
+/Users/alberthbc/Projects/iGarage/iGarage/obj/Debug/netcoreapp3.1/iGarage.genruntimeconfig.cache
