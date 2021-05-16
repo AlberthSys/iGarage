@@ -11,11 +11,35 @@
         this.docID = docID;
     }
 
-    public string Nombre { get; set; }
+    public string GetNombreCompleto()
+    {
+        return nombreCompleto;
+    }
 
-    public string Direccion { get; set; }
+    public string GetDireccion()
+    {
+        return direccion;
+    }
 
-    public string DocID { get; set; }
+    public string GetDocID()
+    {
+        return docID;
+    }
+
+    public void SetNombreCompleto(string nombreCompleto)
+    {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public void SetDireccion(string direccion)
+    {
+        this.direccion = direccion;
+    }
+
+    public void SetDocID(string docID)
+    {
+        this.docID = docID;
+    }
 
     public override string ToString()
     {

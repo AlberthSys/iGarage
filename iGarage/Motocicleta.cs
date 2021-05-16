@@ -1,6 +1,6 @@
 ﻿class Motocicleta
 {
-    private string modelo;
+    public string modelo;
     private string marca;
     private string bastidor;
     private int cilindrada;
@@ -25,6 +25,8 @@
         this.km = km;
         this.cliente = cliente;
     }
+
+
 
     public string GetModelo()
     {
@@ -116,10 +118,30 @@
         this.cliente = cliente;
     }
 
+
+
+    /*public string Modelo { get; set; }
+
+    public string Marca { get; set; }
+
+    public string Bastidor { get; set; }
+
+    public int Cilindrada { get; set; }
+
+    public int Version { get; set; }
+
+    public ushort Kw { get; set; }
+
+    public int CodigoMotor { get; set; }
+
+    public int Km { get; set; }
+
+    public Cliente Cliente { get; set; }*/
+
     public override string ToString()
     {
         return "Modelo: " + modelo + "\n" +
-            "Marca" + marca + "\n" +
+            "Marca: " + marca + "\n" +
             "Bastidor: " + bastidor + "\n" +
             "Cilindrada: " + cilindrada + "\n" +
             "Version: " + version + "\n" +

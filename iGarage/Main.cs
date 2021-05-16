@@ -6,7 +6,7 @@ class Program
     static void Main()
     {
         GestorTaller gestorTaller = new GestorTaller();
-        gestorTaller.MenuPrincipal();
+        gestorTaller.Ejecutar();
     }
 }
 
