@@ -36,8 +36,8 @@ class GestorTaller
     {
         GestorMoto g = new GestorMoto();
         GestorCliente c = new GestorCliente();
-        List<Motocicleta> motocicletas = g.CargarMoto();
-        List<Cliente> clientes = c.CargarClientes();
+        List<Motocicleta> motocicletas = GestorMoto.CargarMoto();
+        List<Cliente> clientes = GestorCliente.CargarClientes();
         bool salir = false;
         do
         {
@@ -128,11 +128,11 @@ class GestorTaller
         Console.WriteLine("*AÑADIR MOTOCICLETA*");
         Console.WriteLine();
         Console.Write("Modelo: ");
-        string modelo = Console.ReadLine();
+        string modelo = Console.ReadLine().ToUpper();
         Console.Write("Marca: ");
-        string marca = Console.ReadLine();
+        string marca = Console.ReadLine().ToUpper();
         Console.Write("Bastidor: ");
-        string bastidor = Console.ReadLine();
+        string bastidor = Console.ReadLine().ToUpper();
         Console.Write("Cilindrada: ");
         int cilindrada = Convert.ToInt32(Console.ReadLine());
         Console.Write("Version: ");
@@ -155,28 +155,29 @@ class GestorTaller
             Console.WriteLine();
             Console.WriteLine("NUEVO CLIENTE");
             Console.Write("Nombre Completo: ");
-            string nombre = Console.ReadLine();
+            string nombre = Console.ReadLine().ToUpper();
             Console.Write("Dirección: ");
             string direccion = Console.ReadLine();
             Console.Write("Documento Identidad: ");
-            string docID = Console.ReadLine();
+            string docID = Console.ReadLine().ToUpper().Trim();
             Console.Write("Modo Competicion S/N: ");
             string competicionAux = Console.ReadLine().ToUpper();
+            
             if (competicionAux == "S")
             {
                 competicion = true;
                 Cliente aux = new Cliente(nombre, direccion, docID,
-               competicion);
+                competicion);
                 clientes.Add(aux);
                 Motocicleta motocicleta = new Motocicleta(modelo, marca, bastidor,
                     cilindrada, version, kw, codigoMotor, km, aux);
                 motocicletas.Add(motocicleta);
             }
-            else
+            if (competicionAux == "N")
             {
                 competicion = false;
                 Cliente aux = new Cliente(nombre, direccion, docID,
-               competicion);
+                competicion);
                 clientes.Add(aux);
                 Motocicleta motocicleta = new Motocicleta(modelo, marca, bastidor,
                     cilindrada, version, kw, codigoMotor, km, aux);

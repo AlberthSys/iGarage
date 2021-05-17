@@ -15,7 +15,7 @@ class GestorMoto
                     + ";" + m.GetCilindrada() + ";" + m.GetVersion() + ";" + m.GetKw()
                     + ";" + m.GetCodigoMotor() + ";" + m.GetKm() + ";" +
                     m.GetCliente().GetNombreCompleto() + ";" + m.GetCliente().GetDireccion() +
-                    ";" + m.GetCliente().GetDocID() + ";" + m.GetCliente().GetCompeticion());
+                    ";" + m.GetCliente().GetDocID() + ";" + m.GetCliente().GetCompeticion() + "\n");
             }
             datosEscribir.Close();
         }
@@ -29,7 +29,7 @@ class GestorMoto
         }
     }
 
-    public List<Motocicleta> CargarMoto()
+    public static List<Motocicleta> CargarMoto()
     {
         List<Motocicleta> motocicletas = new List<Motocicleta>();
         Cliente aux;
@@ -60,11 +60,14 @@ class GestorMoto
                 string direccion = datos[9];
                 string docID = datos[10];
                 bool competicion = Convert.ToBoolean(datos[11]);
+                
                 aux = new Cliente(nombreCompleto, direccion, docID, competicion);
                 moto = new Motocicleta(modelo, marca, bastidor, cilindrada,
                     version, kw, codigoMotor, km, aux);
                 motocicletas.Add(moto);
+
                 linea = ficheroRead.ReadLine();
+
             }
             ficheroRead.Close();
         }

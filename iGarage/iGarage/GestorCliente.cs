@@ -12,7 +12,7 @@ class GestorCliente
             foreach (Cliente m in clientes)
             {
                 datosEscribir.Write(m.GetNombreCompleto() + ";" + m.GetDireccion() + ";" +
-                    m.GetDocID() + ";" + m.GetCompeticion());
+                    m.GetDocID() + ";" + m.GetCompeticion() + "\n");
             }
             datosEscribir.Close();
         }
@@ -26,7 +26,7 @@ class GestorCliente
         }
     }
 
-    public List<Cliente> CargarClientes()
+    public static List<Cliente> CargarClientes()
     {
         List<Cliente> clientes = new List<Cliente>();
         Cliente aux;
@@ -50,6 +50,7 @@ class GestorCliente
                 bool competicion = Convert.ToBoolean(datos[3]);
                 aux = new Cliente(nombreCompleto, direccion, docID, competicion);
                 clientes.Add(aux);
+                linea = ficheroRead.ReadLine();
             }
             ficheroRead.Close();
         }
