@@ -1,6 +1,7 @@
 ﻿class Motocicleta
 {
-    public string modelo;
+    private string matricula;
+    private string modelo;
     private string marca;
     private string bastidor;
     private int cilindrada;
@@ -11,10 +12,11 @@
     Cliente cliente;
 
 
-    public Motocicleta(string modelo, string marca, string bastidor,
+    public Motocicleta(string matricula, string modelo, string marca, string bastidor,
         int cilindrada, int version, ushort kw, int codigoMotor, int km,
         Cliente cliente)
     {
+        this.matricula = matricula;
         this.modelo = modelo;
         this.marca = marca;
         this.bastidor = bastidor;
@@ -26,7 +28,10 @@
         this.cliente = cliente;
     }
 
-
+    public string GetMatricula()
+    {
+        return matricula;
+    }
 
     public string GetModelo()
     {
@@ -71,6 +76,11 @@
     public Cliente GetCliente()
     {
         return cliente;
+    }
+
+    public void SetMatricula(string matricula)
+    {
+        this.matricula = matricula;
     }
 
     public void SetModelo(string modelo)
@@ -118,26 +128,6 @@
         this.cliente = cliente;
     }
 
-
-
-    /*public string Modelo { get; set; }
-
-    public string Marca { get; set; }
-
-    public string Bastidor { get; set; }
-
-    public int Cilindrada { get; set; }
-
-    public int Version { get; set; }
-
-    public ushort Kw { get; set; }
-
-    public int CodigoMotor { get; set; }
-
-    public int Km { get; set; }
-
-    public Cliente Cliente { get; set; }*/
-
     public override string ToString()
     {
         return "Modelo: " + modelo + "\n" +
@@ -147,6 +137,6 @@
             "Version: " + version + "\n" +
             "KW: " + kw + "\n" +
             "Código Motor: " + codigoMotor + "\n" +
-            cliente.ToString();
+            "KM: " + km + "\n";
     }
 }

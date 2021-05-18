@@ -12,7 +12,7 @@ class GestorCliente
             foreach (Cliente m in clientes)
             {
                 datosEscribir.Write(m.GetNombreCompleto() + ";" + m.GetDireccion() + ";" +
-                    m.GetDocID() + ";" + m.GetCompeticion() + "\n");
+                    m.GetDocID() + ";" + m.GetCompeticion()+ ";" + m.GetTelefono() + "\n");
             }
             datosEscribir.Close();
         }
@@ -48,7 +48,8 @@ class GestorCliente
                 string direccion = datos[1];
                 string docID = datos[2];
                 bool competicion = Convert.ToBoolean(datos[3]);
-                aux = new Cliente(nombreCompleto, direccion, docID, competicion);
+                int telefono = Convert.ToInt32(datos[4]);
+                aux = new Cliente(nombreCompleto, direccion, docID, competicion, telefono);
                 clientes.Add(aux);
                 linea = ficheroRead.ReadLine();
             }

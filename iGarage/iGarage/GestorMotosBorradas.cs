@@ -2,13 +2,13 @@
 using System.IO;
 using System;
 
-class GestorMoto
+class GestorMotosBorradas
 {
-    public void GuardarMoto(List<Motocicleta>myListMotos)
+    public void GuardarMoto(List<Motocicleta> myListMotos)
     {
         try
         {
-            StreamWriter datosEscribir = File.CreateText("Motos.txt");
+            StreamWriter datosEscribir = File.CreateText("MotosBorradas.txt");
             foreach (Motocicleta m in myListMotos)
             {
                 datosEscribir.Write(m.GetMatricula() + ";" + m.GetModelo() + ";"
@@ -35,7 +35,7 @@ class GestorMoto
         List<Motocicleta> motocicletas = new List<Motocicleta>();
         Cliente aux;
         Motocicleta moto;
-        string nombreArchivo = "Motos.txt";
+        string nombreArchivo = "MotosBorradas.txt";
         string linea;
         StreamReader ficheroRead;
         if (!File.Exists(nombreArchivo))
@@ -73,11 +73,11 @@ class GestorMoto
             }
             ficheroRead.Close();
         }
-        catch(IOException io)
+        catch (IOException io)
         {
             Console.WriteLine("Error de carga 1 - Moto: " + io.Message);
-        }  
-        catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             Console.WriteLine("Error de carga 2 - Moto: " + ex.Message);
         }
