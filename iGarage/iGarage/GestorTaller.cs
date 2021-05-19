@@ -235,104 +235,123 @@ class GestorTaller
         Console.WriteLine("AÑADIR MOTOCICLETA");
         Console.WriteLine();
         bool competicion = false;
+        bool aceptado = false;
+        string matricula = "";
+       
         Console.Write("Matricula: ");
-        string matricula = Console.ReadLine().ToUpper();
-        Console.Write("Modelo: ");
-        string modelo = Console.ReadLine().ToUpper();
-        Console.Write("Marca: ");
-        string marca = Console.ReadLine().ToUpper();
-        Console.Write("Bastidor: ");
-        string bastidor = Console.ReadLine().ToUpper();
-        Console.Write("Cilindrada: ");
-        int cilindrada = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Version: ");
-        int version = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Kw: ");
-        ushort kw = Convert.ToUInt16(Console.ReadLine());
-        Console.Write("Codigo Motor: ");
-        int codigoMotor = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Km: ");
-        int km = Convert.ToInt32(Console.ReadLine());
-        string op = "";
-        do
+        matricula = Console.ReadLine().ToUpper();
+        matricula = matricula.Replace(" ", String.Empty);
+        matricula = matricula.Trim();
+        for (int i = 0; i < motocicletas.Count; i++)
         {
-            Console.Write("1.Crear nuevo cliente / 2.Asignar a Cliente: ");
-            op = Console.ReadLine();
-        } while (op != "1" && op != "2");
-
-        if (op == "1")
-        {
-            Console.WriteLine();
-            Console.WriteLine("NUEVO CLIENTE");
-            Console.WriteLine();
-            Console.Write("Nombre Completo: ");
-            string nombre = Console.ReadLine().ToUpper();
-            Console.Write("Dirección: ");
-            string direccion = Console.ReadLine().ToUpper();
-            Console.Write("Documento Identidad: ");
-            string docID = Console.ReadLine().ToUpper().Trim();
-            Console.Write("Telefono: ");
-            int telefono = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Modo Competicion S/N: ");
-            string competicionAux = Console.ReadLine().ToUpper();
-            
-            if (competicionAux == "S")
+            if (matricula == motocicletas[i].GetMatricula())
             {
-                competicion = true;
-                Cliente aux = new Cliente(nombre, direccion, docID,
-                competicion, telefono);
-                clientes.Add(aux);
-                Motocicleta motocicleta = new Motocicleta(matricula,modelo, marca, bastidor,
-                    cilindrada, version, kw, codigoMotor, km, aux);
-                motocicletas.Add(motocicleta);
-            }
-            if (competicionAux == "N")
-            {
-                competicion = false;
-                Cliente aux = new Cliente(nombre, direccion, docID,
-                competicion, telefono);
-                clientes.Add(aux);
-                Motocicleta motocicleta = new Motocicleta(matricula, modelo, marca, bastidor,
-                    cilindrada, version, kw, codigoMotor, km, aux);
-                motocicletas.Add(motocicleta);
+                Console.WriteLine("Vehículo ya registrado");
+                aceptado = true;
             }
         }
-        else if (op == "2")
+        if (!aceptado)
         {
-            //Console.Clear();
-            bool encontrado = false;
-            Console.WriteLine();
-            Console.WriteLine("BUSQUEDA CLIENTE");
-            Console.WriteLine();
-            Console.Write("Nombre Completo: ");
-            string buscarNombre = Console.ReadLine().ToLower();
 
-            for (int i = 0; i < clientes.Count; i++)
+
+            Console.Write("Modelo: ");
+            string modelo = Console.ReadLine().ToUpper();
+            modelo = modelo.Replace(" ", String.Empty);
+            Console.Write("Marca: ");
+            string marca = Console.ReadLine().ToUpper();
+            Console.Write("Bastidor: ");
+            string bastidor = Console.ReadLine().ToUpper();
+            Console.Write("Cilindrada: ");
+            int cilindrada = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Version: ");
+            int version = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Kw: ");
+            ushort kw = Convert.ToUInt16(Console.ReadLine());
+            Console.Write("Codigo Motor: ");
+            int codigoMotor = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Km: ");
+            int km = Convert.ToInt32(Console.ReadLine());
+            string op = "";
+            do
             {
-                if (clientes[i].GetNombreCompleto().ToLower().Contains(buscarNombre))
-                {
-                    Console.WriteLine("Nombre: " + clientes[i].GetNombreCompleto());
-                    Console.WriteLine("Documento Identidad: " + clientes[i].GetDocID());
-                    Console.WriteLine("Seleccionar este cliente S/N: ");
-                    string select = Console.ReadLine().ToUpper();
+                Console.Write("1.Crear nuevo cliente / 2.Asignar a Cliente: ");
+                op = Console.ReadLine();
+            } while (op != "1" && op != "2");
 
-                    if (select == "S")
-                    {
-                        Motocicleta motocicleta = new Motocicleta(matricula, modelo,
-                            marca, bastidor, cilindrada, version, kw, codigoMotor,
-                            km, clientes[i]);
-                        motocicletas.Add(motocicleta);
-                        encontrado = true;
-                    }
-                    else if(select == "N")
-                    {
-                        encontrado = false;
-                    }
+            if (op == "1")
+            {
+                Console.WriteLine();
+                Console.WriteLine("NUEVO CLIENTE");
+                Console.WriteLine();
+                Console.Write("Nombre Completo: ");
+                string nombre = Console.ReadLine().ToUpper();
+                Console.Write("Dirección: ");
+                string direccion = Console.ReadLine().ToUpper();
+                Console.Write("Documento Identidad: ");
+                string docID = Console.ReadLine().ToUpper().Trim();
+                Console.Write("Telefono: ");
+                int telefono = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Modo Competicion S/N: ");
+                string competicionAux = Console.ReadLine().ToUpper();
+
+                if (competicionAux == "S")
+                {
+                    competicion = true;
+                    Cliente aux = new Cliente(nombre, direccion, docID,
+                    competicion, telefono);
+                    clientes.Add(aux);
+                    Motocicleta motocicleta = new Motocicleta(matricula, modelo, marca, bastidor,
+                        cilindrada, version, kw, codigoMotor, km, aux);
+                    motocicletas.Add(motocicleta);
+                }
+                if (competicionAux == "N")
+                {
+                    competicion = false;
+                    Cliente aux = new Cliente(nombre, direccion, docID,
+                    competicion, telefono);
+                    clientes.Add(aux);
+                    Motocicleta motocicleta = new Motocicleta(matricula, modelo, marca, bastidor,
+                        cilindrada, version, kw, codigoMotor, km, aux);
+                    motocicletas.Add(motocicleta);
                 }
             }
-            if (!encontrado)
+            else if (op == "2")
             {
-                Console.WriteLine("Cliente no encontrado.");
+                //Console.Clear();
+                bool encontrado = false;
+                Console.WriteLine();
+                Console.WriteLine("BUSQUEDA CLIENTE");
+                Console.WriteLine();
+                Console.Write("Nombre Completo: ");
+                string buscarNombre = Console.ReadLine().ToLower();
+
+                for (int i = 0; i < clientes.Count; i++)
+                {
+                    if (clientes[i].GetNombreCompleto().ToLower().Contains(buscarNombre))
+                    {
+                        Console.WriteLine("Nombre: " + clientes[i].GetNombreCompleto());
+                        Console.WriteLine("Documento Identidad: " + clientes[i].GetDocID());
+                        Console.WriteLine("Seleccionar este cliente S/N: ");
+                        string select = Console.ReadLine().ToUpper();
+
+                        if (select == "S")
+                        {
+                            Motocicleta motocicleta = new Motocicleta(matricula, modelo,
+                                marca, bastidor, cilindrada, version, kw, codigoMotor,
+                                km, clientes[i]);
+                            motocicletas.Add(motocicleta);
+                            encontrado = true;
+                        }
+                        else if (select == "N")
+                        {
+                            encontrado = false;
+                        }
+                    }
+                }
+                if (!encontrado)
+                {
+                    Console.WriteLine("Cliente no encontrado.");
+                }
             }
         }
     }
@@ -480,7 +499,8 @@ class GestorTaller
         try
         {
             StreamWriter datosEscribir = File.CreateText("MotosBBDD.csv");
-            datosEscribir.Write("Matricula;Modelo;Marca;Bastidor" + "\n") ;
+            datosEscribir.Write("MATRICULA;MODELO;MARCA;BASTIDOR;CILINDRADA;" +
+                "VERSION;KW;CODIGO MOTOR; KM" + "\n") ;
             foreach (Motocicleta m in myListMotos)
             {
                 datosEscribir.Write(m.GetMatricula() + ";" + m.GetModelo() + ";"
@@ -491,6 +511,8 @@ class GestorTaller
                     + m.GetCliente().GetCompeticion() + ";" + m.GetCliente().GetTelefono() + "\n"*/);
             }
             datosEscribir.Close();
+            Console.WriteLine();
+            Console.WriteLine("Fichero generado con éxito");
         }
         catch (IOException io)
         {

@@ -1,24 +1,24 @@
 ﻿<Properties StartupConfiguration="{03288BC7-B1CE-49E9-98EC-CEC0BE4585C3}|Default">
   <MonoDevelop.Ide.ItemProperties.iGarage PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="iGarage/Proveedor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="iGarage/GestorTaller.cs">
     <Files>
       <File FileName="iGarage/Cliente.cs" Line="22" Column="6" />
       <File FileName="iGarage/Persona.cs" Line="11" Column="10" />
       <File FileName="iGarage/Main.cs" />
-      <File FileName="iGarage/GestorTaller.cs" Line="496" Column="10" />
-      <File FileName="iGarage/GestorMoto.cs" Line="31" Column="6" />
-      <File FileName="iGarage/GestorMotosBorradas.cs" Line="38" Column="46" />
+      <File FileName="iGarage/GestorTaller.cs" Line="249" Column="58" />
+      <File FileName="iGarage/GestorMoto.cs" />
+      <File FileName="iGarage/GestorMotosBorradas.cs" />
       <File FileName="iGarage/Proveedor.cs" Line="21" Column="1" />
       <File FileName="iGarage/GestorCliente.cs" />
       <File FileName="iGarage/GestorProveedor.cs" />
-      <File FileName="iGarage/Motocicleta.cs" Line="11" Column="20" />
+      <File FileName="iGarage/Motocicleta.cs" Line="143" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="iGarage" expanded="True">
             <Node name="iGarage" expanded="True">
-              <Node name="Proveedor.cs" selected="True" />
+              <Node name="GestorTaller.cs" selected="True" />
             </Node>
           </Node>
         </State>

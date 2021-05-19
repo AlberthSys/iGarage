@@ -130,7 +130,8 @@
 
     public override string ToString()
     {
-        return "Modelo: " + modelo + "\n" +
+        return "Matricula: " + matricula + "\n" +
+            "Modelo: " + modelo + "\n" +
             "Marca: " + marca + "\n" +
             "Bastidor: " + bastidor + "\n" +
             "Cilindrada: " + cilindrada + "\n" +
