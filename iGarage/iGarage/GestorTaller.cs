@@ -30,13 +30,25 @@ class GestorTaller
         Console.WriteLine("A.- Menú iGarage");
     }
 
+    private void MenuProveedor()
+    {
+        Console.WriteLine();
+        Console.WriteLine("     * PROVEEDORES *      ");
+        Console.WriteLine();
+        Console.WriteLine("1.- VER PROVEEDORES");
+        Console.WriteLine("2.- REALIZAR REMESA XML");
+        Console.WriteLine("A.- Menú iGarage");
+    }
+
     public void Ejecutar() //MENU PRINCIPAL
     {
         GestorMoto g = new GestorMoto();
         GestorCliente c = new GestorCliente();
+        GestorProveedor p = new GestorProveedor();
         List<Motocicleta> motocicletas = GestorMoto.CargarMoto();
         List<Motocicleta> motocicletasBorradas = GestorMotosBorradas.CargarMoto();
         List<Cliente> clientes = GestorCliente.CargarClientes();
+        List<Proveedor> proveedores = GestorProveedor.CargarProveedor();
         bool salir = false;
         do
         {
@@ -47,6 +59,7 @@ class GestorTaller
                     Motocicleta(motocicletas, clientes, motocicletasBorradas);
                     break;
                 case "2":
+                    Proveedor(proveedores);
                     break;
                 case "3":
                     break;
@@ -64,6 +77,70 @@ class GestorTaller
         g.GuardarMoto(motocicletas);
         g.GuardarMoto(motocicletasBorradas);
         c.GuardarCliente(clientes);
+        p.GuardarProveedor(proveedores);
+    }
+
+    private void Motocicleta(List<Motocicleta> motocicletas, List<Cliente> clientes //SEGUNDO  MENU
+       , List<Motocicleta> motocicletasBorradas)
+    {
+        //Console.Clear();
+        bool salir = false;
+        do
+        {
+            MenuMoto();
+            switch (Seleccion("Seleccione una opción: "))
+            {
+                case "1":
+                    AddMoto(motocicletas, clientes);
+                    break;
+                case "2":
+                    MostrarMotos(motocicletas, motocicletasBorradas);
+                    break;
+                case "3":
+                    BuscarMoto(motocicletas);
+                    break;
+                case "4":
+                    BorrarMoto(motocicletas, motocicletasBorradas);
+                    break;
+                case "5":
+                    MotoXLSX(motocicletas);
+                    break;
+                case "6":
+                    ModificarMoto(motocicletas, clientes);
+                    break;
+                case "A":
+                    salir = true;
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una de las anteriores");
+                    break;
+            }
+        } while (!salir);
+    }
+
+    private void Proveedor(List<Proveedor> proveedores)//TERCER MENU
+    {
+        //Console.Clear();
+        bool salir = false;
+        do
+        {
+            MenuProveedor();
+            switch (Seleccion("Seleccione una opción: "))
+            {
+                case "1":
+                    MostrarProveedores(proveedores);
+                    break;
+                case "2":
+                    RealizarRemesa(proveedores);
+                    break;
+                case "A":
+                    salir = true;
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una de las anteriores");
+                    break;
+            }
+        } while (!salir);
     }
 
     private string Seleccion(string aviso)
@@ -101,40 +178,49 @@ class GestorTaller
         return salir;
     }
 
-    private void Motocicleta(List<Motocicleta> motocicletas, List<Cliente> clientes
-        , List<Motocicleta> motocicletasBorradas)//SEGUNDO  MENU
+    private void MostrarProveedores(List<Proveedor> proveedores)
     {
         //Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine("MOSTRAR PROVEEDORES");
+        Console.WriteLine();
+        int i = 0;
+        foreach (Proveedor p in proveedores)
+        {
+            i += 1;
+            Console.Write(i + ".-");
+            Console.WriteLine(p);
+        }
+    }
+
+    private void RealizarRemesa(List<Proveedor> proveedores)
+    {
+        //Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine("PREPARAR REMESA");
+        Console.WriteLine();
+        float importe;
         bool salir = false;
+        string aux, confirmacion;
+        Proveedor[] auxiliarRemesa;
         do
         {
-            MenuMoto();
-            switch (Seleccion("Seleccione una opción: "))
+            Console.Write("Nombre del proveedor a incluir:");
+            aux = Console.ReadLine();
+            for (int i = 0; i < proveedores.Count; i++)
             {
-                case "1":
-                    AddMoto(motocicletas, clientes);
-                    break;
-                case "2":
-                    MostrarMotos(motocicletas, motocicletasBorradas);
-                    break;
-                case "3":
-                    BuscarMoto(motocicletas);
-                    break;
-                case "4":
-                    BorrarMoto(motocicletas, motocicletasBorradas);
-                    break;
-                case "5":
-                    MotoXLSX(motocicletas);
-                    break;
-                case "6":
-                    ModificarMoto(motocicletas, clientes);
-                    break;
-                case "A":
-                    salir = true;
-                    break;
-                default:
-                    Console.WriteLine("Seleccione una de las anteriores");
-                    break;
+                if (proveedores[i].GetNombreCompleto().Contains(aux))
+                {
+                    Console.WriteLine(proveedores[i]);
+                    Console.Write("¿Desea incluir este proveedor? (S/N): ");
+                    confirmacion = Console.ReadLine().ToUpper();
+                    if (confirmacion == "S")
+                    {
+                        Console.Write("Importe: ");
+                        importe = Convert.ToSingle(Console.ReadLine());
+                        //auxiliarRemesa[i].NombreCompleto = proveedores[i].GetNombreCompleto(); 
+                    }
+                }
             }
         } while (!salir);
     }
@@ -262,6 +348,7 @@ class GestorTaller
 
     private void MostrarCliente(List<Cliente> clientes)
     {
+        //Console.Clear();
         Console.WriteLine();
         Console.WriteLine("CLIENTES");
         Console.WriteLine();
@@ -510,10 +597,10 @@ class GestorTaller
             aux = Console.ReadLine().ToLower();
             if (aux == "nombre")
             {
-                Console.Write("Nuevo nombre: ");
+                /*Console.Write("Nuevo nombre: ");
                 aux = Console.ReadLine().ToUpper();
                 motocicletas[posicionModificar].SetCliente(motocicletas
-                    [posicionModificar].SetCliente().SetNombre(aux));
+                    [posicionModificar].SetCliente().SetNombre(aux));*/
                 
             }
         }
