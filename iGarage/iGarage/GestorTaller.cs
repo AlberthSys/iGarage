@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 class GestorTaller
 {
@@ -25,7 +26,7 @@ class GestorTaller
         Console.WriteLine("2.- MOSTRAR TODAS LAS MOTOCICLETAS");
         Console.WriteLine("3.- BUSCAR MOTOCICLETA");
         Console.WriteLine("4.- BORRAR MOTOCICLETA");
-        Console.WriteLine("5.- GENERAR LISTADO DE MOTOCICLETAS - XLSX");
+        Console.WriteLine("5.- GENERAR LISTADO DE MOTOCICLETAS - CSV");
         Console.WriteLine("6.- MODIFICACIÓN DATOS");
         Console.WriteLine("A.- Menú iGarage");
     }
@@ -43,6 +44,7 @@ class GestorTaller
     public void Ejecutar() //MENU PRINCIPAL
     {
         GestorMoto g = new GestorMoto();
+        GestorMotosBorradas f = new GestorMotosBorradas();
         GestorCliente c = new GestorCliente();
         GestorProveedor p = new GestorProveedor();
         List<Motocicleta> motocicletas = GestorMoto.CargarMoto();
@@ -75,7 +77,7 @@ class GestorTaller
             }
         } while (!salir);
         g.GuardarMoto(motocicletas);
-        g.GuardarMoto(motocicletasBorradas);
+        f.GuardarMoto(motocicletasBorradas);
         c.GuardarCliente(clientes);
         p.GuardarProveedor(proveedores);
     }
@@ -473,12 +475,34 @@ class GestorTaller
 
     }
 
-    private void MotoXLSX(List<Motocicleta> motocicletas)
+    public void MotoXLSX(List<Motocicleta> myListMotos)
     {
-
+        try
+        {
+            StreamWriter datosEscribir = File.CreateText("MotosBBDD.csv");
+            datosEscribir.Write("Matricula;Modelo;Marca;Bastidor" + "\n") ;
+            foreach (Motocicleta m in myListMotos)
+            {
+                datosEscribir.Write(m.GetMatricula() + ";" + m.GetModelo() + ";"
+                    + m.GetMarca() + ";" + m.GetBastidor() + ";" + m.GetCilindrada() + ";"
+                    + m.GetVersion() + ";" + m.GetKw() + ";" + m.GetCodigoMotor() + ";"
+                    + m.GetKm() + "\n" /*+ ";" + m.GetCliente().GetNombreCompleto() + ";"
+                    + m.GetCliente().GetDireccion() + ";" + m.GetCliente().GetDocID() + ";"
+                    + m.GetCliente().GetCompeticion() + ";" + m.GetCliente().GetTelefono() + "\n"*/);
+            }
+            datosEscribir.Close();
+        }
+        catch (IOException io)
+        {
+            Console.WriteLine(io.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
-    private void ModificarMoto(List<Motocicleta> motocicletas, List<Cliente> clientes)
+        private void ModificarMoto(List<Motocicleta> motocicletas, List<Cliente> clientes)
     {
         //Console.Clear();
         Console.WriteLine();
@@ -593,15 +617,19 @@ class GestorTaller
         }
         else if (campoModificar == "cliente")
         {
+            Cliente clienteAux = new Cliente
+                (motocicletas[posicionModificar].GetCliente().GetNombreCompleto(),
+                motocicletas[posicionModificar].GetCliente().GetDireccion(),
+                motocicletas[posicionModificar].GetCliente().GetDocID(),
+                motocicletas[posicionModificar].GetCliente().GetCompeticion(),
+                motocicletas[posicionModificar].GetCliente().GetTelefono());
             Console.Write("Indicar campo completo del cliente a modificar: ");
             aux = Console.ReadLine().ToLower();
             if (aux == "nombre")
             {
-                /*Console.Write("Nuevo nombre: ");
+                Console.Write("Nuevo nombre: ");
                 aux = Console.ReadLine().ToUpper();
-                motocicletas[posicionModificar].SetCliente(motocicletas
-                    [posicionModificar].SetCliente().SetNombre(aux));*/
-                
+                clienteAux.SetNombreCompleto(aux);
             }
         }
     }
