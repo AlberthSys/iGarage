@@ -6,12 +6,13 @@ using System.Xml.Serialization;
 class Proveedor: Persona
 { 
     string numeroCuenta;
-   // int deuda;
+    float deuda;
     public Proveedor(string nombreCompleto, string direccion, string docID,
-        string numeroCuenta)
+        string numeroCuenta, float deuda)
         : base(nombreCompleto, direccion, docID)
     {
         this.numeroCuenta = numeroCuenta;
+        this.deuda = deuda;
     }
 
     //public string NumeroCuenta { get; set; }
@@ -22,9 +23,15 @@ class Proveedor: Persona
         set => numeroCuenta = value;
     }
 
+    public float Deuda
+    {
+        get => deuda;
+        set => deuda = value;
+    }
+
     public override string ToString()
     {
-        return base.ToString() + "Numero Cuenta Bancaria: " + numeroCuenta;
+        return base.ToString();
     }
 
     public void toXML()

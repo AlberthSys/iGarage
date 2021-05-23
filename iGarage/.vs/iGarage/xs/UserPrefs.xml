@@ -2,16 +2,10 @@
   <MonoDevelop.Ide.ItemProperties.iGarage PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="iGarage/GestorTaller.cs">
     <Files>
-      <File FileName="iGarage/Cliente.cs" Line="22" Column="6" />
-      <File FileName="iGarage/Persona.cs" Line="11" Column="10" />
       <File FileName="iGarage/Main.cs" />
-      <File FileName="iGarage/GestorTaller.cs" Line="249" Column="58" />
-      <File FileName="iGarage/GestorMoto.cs" />
-      <File FileName="iGarage/GestorMotosBorradas.cs" />
-      <File FileName="iGarage/Proveedor.cs" Line="21" Column="1" />
-      <File FileName="iGarage/GestorCliente.cs" />
-      <File FileName="iGarage/GestorProveedor.cs" />
-      <File FileName="iGarage/Motocicleta.cs" Line="143" Column="2" />
+      <File FileName="iGarage/GestorTaller.cs" Line="540" Column="77" />
+      <File FileName="iGarage/Proveedor.cs" Line="43" Column="6" />
+      <File FileName="iGarage/GestorProveedor.cs" Line="40" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

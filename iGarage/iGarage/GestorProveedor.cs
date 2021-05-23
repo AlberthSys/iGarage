@@ -12,7 +12,7 @@ class GestorProveedor
             foreach (Proveedor p in proveedores)
             {
                 datosEscribir.Write(p.GetNombreCompleto() + ";" + p.GetDireccion() + ";" +
-                    p.GetDocID() + ";" + p.NumeroCuenta + "\n");
+                    p.GetDocID() + ";" + p.NumeroCuenta + p.Deuda + "\n");
             }
             datosEscribir.Close();
         }
@@ -48,7 +48,9 @@ class GestorProveedor
                 string direccion = datos[1];
                 string docID = datos[2];
                 string numeroCuenta = datos[3];
-                aux = new Proveedor(nombreCompleto, direccion, docID, numeroCuenta);
+                float deuda = float.Parse(datos[4]);
+                aux = new Proveedor(nombreCompleto, direccion, docID, numeroCuenta
+                    , deuda);
                 proveedores.Add(aux);
                 linea = ficheroRead.ReadLine();
             }

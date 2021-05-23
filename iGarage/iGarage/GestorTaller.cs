@@ -20,7 +20,7 @@ class GestorTaller
     private void MenuMoto()
     {
         Console.WriteLine();
-        Console.WriteLine("     * MOTOCICLETAS *      ");
+        Console.WriteLine("           * MOTOCICLETAS *      ");
         Console.WriteLine();
         Console.WriteLine("1.- NUEVA MOTOCICLETA");
         Console.WriteLine("2.- MOSTRAR TODAS LAS MOTOCICLETAS");
@@ -34,14 +34,17 @@ class GestorTaller
     private void MenuProveedor()
     {
         Console.WriteLine();
-        Console.WriteLine("     * PROVEEDORES *      ");
+        Console.WriteLine("           * PROVEEDORES *      ");
         Console.WriteLine();
         Console.WriteLine("1.- VER PROVEEDORES");
         Console.WriteLine("2.- REALIZAR REMESA XML");
+        Console.WriteLine("3.- VER DEUDAS");
         Console.WriteLine("A.- Menú iGarage");
+        
     }
 
-    public void Ejecutar() //MENU PRINCIPAL
+    //MENU PRINCIPAL
+    public void Ejecutar()
     {
         GestorMoto g = new GestorMoto();
         GestorMotosBorradas f = new GestorMotosBorradas();
@@ -82,6 +85,7 @@ class GestorTaller
         p.GuardarProveedor(proveedores);
     }
 
+    //MENU MOTOS
     private void Motocicleta(List<Motocicleta> motocicletas, List<Cliente> clientes //SEGUNDO  MENU
        , List<Motocicleta> motocicletasBorradas)
     {
@@ -120,6 +124,7 @@ class GestorTaller
         } while (!salir);
     }
 
+    //MENU PROVEEDORES
     private void Proveedor(List<Proveedor> proveedores)//TERCER MENU
     {
         //Console.Clear();
@@ -134,6 +139,9 @@ class GestorTaller
                     break;
                 case "2":
                     RealizarRemesa(proveedores);
+                    break;
+                case "3":
+                    VerDeuda(proveedores);
                     break;
                 case "A":
                     salir = true;
@@ -225,6 +233,27 @@ class GestorTaller
                 }
             }
         } while (!salir);
+    }
+
+    private void VerDeuda(List<Proveedor> proveedores)
+    {
+        bool deuda = false;
+        for (int i = 0; i < proveedores.Count; i++)
+        {
+            if (proveedores[i].Deuda != 0)
+            {
+                deuda = true;
+                Console.Write((i + 1) + ".- ");
+                Console.Write(proveedores[i].GetNombreCompleto() + ": ");
+                Console.Write(proveedores[i].Deuda + "€");
+                Console.WriteLine();
+            }
+        }
+
+        if (!deuda)
+        {
+            Console.WriteLine("No existen deudas actualmente");
+        }
     }
 
     private static void AddMoto(List<Motocicleta> motocicletas,
