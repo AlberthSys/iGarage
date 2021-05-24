@@ -12,7 +12,7 @@ class GestorProveedor
             foreach (Proveedor p in proveedores)
             {
                 datosEscribir.Write(p.GetNombreCompleto() + ";" + p.GetDireccion() + ";" +
-                    p.GetDocID() + ";" + p.NumeroCuenta + p.Deuda + "\n");
+                    p.GetDocID() + ";" + p.NumeroCuenta + ";" + p.Deuda + "\n");
             }
             datosEscribir.Close();
         }
@@ -58,11 +58,11 @@ class GestorProveedor
         }
         catch (IOException io)
         {
-            Console.WriteLine("Error de carga 1: Cliente " + io.Message);
+            Console.WriteLine("Error de carga 1: Proveedor " + io.Message);
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Error de carga 2: Cliente " + ex.Message);
+            Console.WriteLine("Error de carga 2: Proveedor " + ex.Message);
         }
 
         return proveedores;

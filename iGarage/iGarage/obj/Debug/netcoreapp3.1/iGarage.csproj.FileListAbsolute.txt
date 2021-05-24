@@ -10,3 +10,6 @@
 /Users/alberthbc/Projects/iGarage/iGarage/obj/Debug/netcoreapp3.1/iGarage.dll
 /Users/alberthbc/Projects/iGarage/iGarage/obj/Debug/netcoreapp3.1/iGarage.pdb
 /Users/alberthbc/Projects/iGarage/iGarage/obj/Debug/netcoreapp3.1/iGarage.genruntimeconfig.cache
+/Users/alberthbc/Projects/iGarage/iGarage/bin/Debug/netcoreapp3.1/BouncyCastle.Crypto.dll
+/Users/alberthbc/Projects/iGarage/iGarage/bin/Debug/netcoreapp3.1/itextsharp.dll
+/Users/alberthbc/Projects/iGarage/iGarage/obj/Debug/netcoreapp3.1/iGarage.csproj.CopyComplete

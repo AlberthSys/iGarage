@@ -43,6 +43,17 @@ class GestorTaller
         
     }
 
+    private void MenuOrdenReparacion()
+    {
+        Console.WriteLine();
+        Console.WriteLine("           * ORDEN DE REPARACIÓN *      ");
+        Console.WriteLine();
+        Console.WriteLine("1.- GENERAR ORDEN");
+        Console.WriteLine("2.- VISUALIZAR ORDENES");
+        Console.WriteLine("A.- Menú iGarage");
+
+    }
+
     //MENU PRINCIPAL
     public void Ejecutar()
     {
@@ -50,10 +61,13 @@ class GestorTaller
         GestorMotosBorradas f = new GestorMotosBorradas();
         GestorCliente c = new GestorCliente();
         GestorProveedor p = new GestorProveedor();
+        GestorMecanico m = new GestorMecanico();
         List<Motocicleta> motocicletas = GestorMoto.CargarMoto();
         List<Motocicleta> motocicletasBorradas = GestorMotosBorradas.CargarMoto();
         List<Cliente> clientes = GestorCliente.CargarClientes();
         List<Proveedor> proveedores = GestorProveedor.CargarProveedor();
+        List<Mecanico> mecanicos = GestorMecanico.CargarMecanicos();
+        List<OrdenReparacion> ordenReparaciones = new List<OrdenReparacion>();
         bool salir = false;
         do
         {
@@ -67,6 +81,7 @@ class GestorTaller
                     Proveedor(proveedores);
                     break;
                 case "3":
+                    OrdenReparacion(mecanicos, clientes, motocicletas, ordenReparaciones);
                     break;
                 case "4":
                     MostrarCliente(clientes);
@@ -83,10 +98,11 @@ class GestorTaller
         f.GuardarMoto(motocicletasBorradas);
         c.GuardarCliente(clientes);
         p.GuardarProveedor(proveedores);
+        m.GuardarMecanico(mecanicos);
     }
 
     //MENU MOTOS
-    private void Motocicleta(List<Motocicleta> motocicletas, List<Cliente> clientes //SEGUNDO  MENU
+    private void Motocicleta(List<Motocicleta> motocicletas, List<Cliente> clientes
        , List<Motocicleta> motocicletasBorradas)
     {
         //Console.Clear();
@@ -125,7 +141,7 @@ class GestorTaller
     }
 
     //MENU PROVEEDORES
-    private void Proveedor(List<Proveedor> proveedores)//TERCER MENU
+    private void Proveedor(List<Proveedor> proveedores)
     {
         //Console.Clear();
         bool salir = false;
@@ -152,6 +168,77 @@ class GestorTaller
             }
         } while (!salir);
     }
+
+    //MENU ORDEN REPARACIÓN
+    private void OrdenReparacion(List<Mecanico> mecanicos, List<Cliente> clientes,
+        List<Motocicleta> motocicletas, List<OrdenReparacion> ordenReparaciones)
+    {
+        //Console.Clear();
+        bool salir = false;
+        do
+        {
+            MenuOrdenReparacion();
+            switch (Seleccion("Seleccione una opción: "))
+            {
+                case "1":
+                    GenerarOrden(mecanicos, clientes, motocicletas, ordenReparaciones);
+                    break;
+                case "2":
+                    VisualizarOrden(ordenReparaciones);
+                    break;
+                case "A":
+                    salir = true;
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una de las anteriores");
+                    break;
+            }
+        } while (!salir);
+    }
+
+    private void GenerarOrden(List<Mecanico> mecanicos, List<Cliente> clientes,
+        List<Motocicleta> motocicletas, List<OrdenReparacion> ordenReparaciones)
+    {
+        //Console.Clear();
+        OrdenReparacion o = new OrdenReparacion();
+        Console.WriteLine();
+        Console.WriteLine("GENERAR ORDEN DE REPARACIÓN");
+        Console.WriteLine();
+        int orden = Convert.ToInt32(o.GenerarOrden());
+        int numeroMoto = BuscarMoto(motocicletas);
+        int numeroMecanico = seleccionarMecanico(mecanicos);
+        Motocicleta moto = motocicletas[numeroMoto];
+        Cliente cliente = motocicletas[numeroMoto].GetCliente();
+        Mecanico mecanico = mecanicos[numeroMecanico];
+        Console.Write("Describa el problema idicado por el cliente: ");
+        string problema = Console.ReadLine();
+        OrdenReparacion tramitarOrden = new OrdenReparacion(orden, cliente, mecanico,
+            moto, problema);
+        ordenReparaciones.Add(tramitarOrden);
+    }
+
+    private void VisualizarOrden(List<OrdenReparacion> ordenReparaciones)
+    {
+        foreach (OrdenReparacion o in ordenReparaciones)
+        {
+            Console.WriteLine(o);
+        }
+    }
+
+    private int seleccionarMecanico(List<Mecanico>mecanicos)
+    {
+        Console.WriteLine();
+        Console.WriteLine("Seleccione un mecanico: ");
+        for (int i = 0; i < mecanicos.Count; i++)
+        {
+            Console.Write((i + 1) + ".- ");
+            Console.WriteLine(mecanicos[i]);
+        }
+        int numeroMecanico = Convert.ToInt32(Console.ReadLine());
+
+        return numeroMecanico - 1;
+    }
+
 
     private string Seleccion(string aviso)
     {
@@ -443,7 +530,7 @@ class GestorTaller
         }
     }
 
-    private void BuscarMoto(List<Motocicleta> motocicletas)
+    private int BuscarMoto(List<Motocicleta> motocicletas)
     {
         //Console.Clear();
         bool buscar = false;
@@ -452,7 +539,9 @@ class GestorTaller
         Console.WriteLine();
         Console.WriteLine("1.- Búsqueda por matrícula");
         Console.WriteLine("2.- Búsqueda general");
+        Console.Write("Seleccione (1 - 2): ");
         string input = Console.ReadLine();
+        Console.WriteLine();
         if (input == "1")
         {
             Console.Write("Matricula: ");
@@ -468,16 +557,19 @@ class GestorTaller
                     {
                         Console.WriteLine(motocicletas[i]);
                         Console.WriteLine(motocicletas[i].GetCliente());
+                        return i;
                     }
                     else if(conf == "N")
                     {
                         Console.WriteLine(motocicletas[i]);
+                        return i;
                     }
                 }
             }
             if (!buscar)
             {
                 Console.WriteLine("No encontrado");
+                return -1;
             }
         }
         else if (input == "2")
@@ -491,8 +583,9 @@ class GestorTaller
             int numeroBus = Convert.ToInt32(Console.ReadLine()) - 1;
             Console.WriteLine(motocicletas[numeroBus]);
             Console.WriteLine(motocicletas[numeroBus].GetCliente());
+            return numeroBus;
         }
-        
+        return -1;
     }
 
     private void BorrarMoto(List<Motocicleta> motocicletas,
