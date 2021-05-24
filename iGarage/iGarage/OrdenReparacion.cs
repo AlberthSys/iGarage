@@ -6,11 +6,6 @@
     Motocicleta motocicleta;
     string problema;
 
-    public OrdenReparacion()
-    {
-
-    }
-
     public OrdenReparacion(int numeroOrden, Cliente cliente, Mecanico mecanico,
         Motocicleta motocicleta, string problema)
     {
@@ -71,17 +66,12 @@
         this.problema = problema;
     }
 
-    public int GenerarOrden()
-    {
-        return this.numeroOrden += 1;
-    }
-
     public override string ToString()
     {
         return "Orden: " + numeroOrden + "\n"
             + "Cliente: " + cliente.GetNombreCompleto() + "\n"
             + "Mecanico: " + mecanico.GetNombreCompleto() + "\n"
-            + motocicleta.ToString() + "\n"+
+            + motocicleta.ToString() +
             "Problema: " + problema + "\n";
     }
 }

@@ -62,12 +62,13 @@ class GestorTaller
         GestorCliente c = new GestorCliente();
         GestorProveedor p = new GestorProveedor();
         GestorMecanico m = new GestorMecanico();
+        GestorOrdenesTaller o = new GestorOrdenesTaller();
         List<Motocicleta> motocicletas = GestorMoto.CargarMoto();
         List<Motocicleta> motocicletasBorradas = GestorMotosBorradas.CargarMoto();
         List<Cliente> clientes = GestorCliente.CargarClientes();
         List<Proveedor> proveedores = GestorProveedor.CargarProveedor();
         List<Mecanico> mecanicos = GestorMecanico.CargarMecanicos();
-        List<OrdenReparacion> ordenReparaciones = new List<OrdenReparacion>();
+        List<OrdenReparacion> ordenReparaciones = GestorOrdenesTaller.CargarOrdenesRep();
         bool salir = false;
         do
         {
@@ -99,6 +100,7 @@ class GestorTaller
         c.GuardarCliente(clientes);
         p.GuardarProveedor(proveedores);
         m.GuardarMecanico(mecanicos);
+        o.GuardarOrdenTaller(ordenReparaciones);
     }
 
     //MENU MOTOS
@@ -200,11 +202,10 @@ class GestorTaller
         List<Motocicleta> motocicletas, List<OrdenReparacion> ordenReparaciones)
     {
         //Console.Clear();
-        OrdenReparacion o = new OrdenReparacion();
         Console.WriteLine();
         Console.WriteLine("GENERAR ORDEN DE REPARACIÓN");
         Console.WriteLine();
-        int orden = Convert.ToInt32(o.GenerarOrden());
+        int orden = ordenReparaciones.Count + 1;
         int numeroMoto = BuscarMoto(motocicletas);
         int numeroMecanico = seleccionarMecanico(mecanicos);
         Motocicleta moto = motocicletas[numeroMoto];
@@ -227,15 +228,15 @@ class GestorTaller
 
     private int seleccionarMecanico(List<Mecanico>mecanicos)
     {
-        Console.WriteLine();
-        Console.WriteLine("Seleccione un mecanico: ");
+        Console.WriteLine("-------MECANICOS-------");
         for (int i = 0; i < mecanicos.Count; i++)
         {
             Console.Write((i + 1) + ".- ");
             Console.WriteLine(mecanicos[i]);
         }
+        Console.Write("Seleccione un mecanico: ");
         int numeroMecanico = Convert.ToInt32(Console.ReadLine());
-
+        Console.WriteLine();
         return numeroMecanico - 1;
     }
 

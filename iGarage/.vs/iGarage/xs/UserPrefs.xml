@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{03288BC7-B1CE-49E9-98EC-CEC0BE4585C3}|Default">
   <MonoDevelop.Ide.ItemProperties.iGarage PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="iGarage/OrdenReparacion.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="iGarage/GestorOrdenesTaller.cs">
     <Files>
-      <File FileName="iGarage/GestorTaller.cs" Line="231" Column="51" />
-      <File FileName="iGarage/OrdenReparacion.cs" Line="74" Column="33" />
+      <File FileName="iGarage/GestorTaller.cs" Line="97" Column="26" />
+      <File FileName="iGarage/GestorOrdenesTaller.cs" Line="68" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,7 +14,7 @@
                 <Node name="FrameworkReferences" expanded="True" />
                 <Node name="PackageDependencies" expanded="True" />
               </Node>
-              <Node name="OrdenReparacion.cs" selected="True" />
+              <Node name="GestorOrdenesTaller.cs" selected="True" />
             </Node>
           </Node>
         </State>
