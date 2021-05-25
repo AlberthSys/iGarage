@@ -4,57 +4,7 @@ using System.IO;
 
 class GestorTaller
 {
-    private void MenuPrincipal()
-    {
-        Console.WriteLine();
-        Console.WriteLine("        *------ iGarage ------*       ");
-        Console.WriteLine();
-        Console.WriteLine("1.- MOTOCICLETAS.");
-        Console.WriteLine("2.- GESTIÓN PROVEEDORES.");
-        Console.WriteLine("3.- ORDEN DE REPARACIÓN.");
-        Console.WriteLine("4.- MOSTRAR CLIENTES.");
-        Console.WriteLine("E.- SALIR.");
-        Console.WriteLine();
-    }
-
-    private void MenuMoto()
-    {
-        Console.WriteLine();
-        Console.WriteLine("           * MOTOCICLETAS *      ");
-        Console.WriteLine();
-        Console.WriteLine("1.- NUEVA MOTOCICLETA");
-        Console.WriteLine("2.- MOSTRAR TODAS LAS MOTOCICLETAS");
-        Console.WriteLine("3.- BUSCAR MOTOCICLETA");
-        Console.WriteLine("4.- BORRAR MOTOCICLETA");
-        Console.WriteLine("5.- GENERAR LISTADO DE MOTOCICLETAS - CSV");
-        Console.WriteLine("6.- MODIFICACIÓN DATOS");
-        Console.WriteLine("A.- Menú iGarage");
-    }
-
-    private void MenuProveedor()
-    {
-        Console.WriteLine();
-        Console.WriteLine("           * PROVEEDORES *      ");
-        Console.WriteLine();
-        Console.WriteLine("1.- VER PROVEEDORES");
-        Console.WriteLine("2.- REALIZAR REMESA XML");
-        Console.WriteLine("3.- VER DEUDAS");
-        Console.WriteLine("A.- Menú iGarage");
-        
-    }
-
-    private void MenuOrdenReparacion()
-    {
-        Console.WriteLine();
-        Console.WriteLine("           * ORDEN DE REPARACIÓN *      ");
-        Console.WriteLine();
-        Console.WriteLine("1.- GENERAR ORDEN");
-        Console.WriteLine("2.- VISUALIZAR ORDENES");
-        Console.WriteLine("A.- Menú iGarage");
-
-    }
-
-    //MENU PRINCIPAL
+    //LOGICA PRINCIPAL
     public void Ejecutar()
     {
         GestorMoto g = new GestorMoto();
@@ -97,149 +47,27 @@ class GestorTaller
         } while (!salir);
         g.GuardarMoto(motocicletas);
         f.GuardarMoto(motocicletasBorradas);
+        clientes.Sort();
         c.GuardarCliente(clientes);
         p.GuardarProveedor(proveedores);
         m.GuardarMecanico(mecanicos);
         o.GuardarOrdenTaller(ordenReparaciones);
     }
 
-    //MENU MOTOS
-    private void Motocicleta(List<Motocicleta> motocicletas, List<Cliente> clientes
-       , List<Motocicleta> motocicletasBorradas)
+    private void MenuPrincipal()
     {
-        //Console.Clear();
-        bool salir = false;
-        do
-        {
-            MenuMoto();
-            switch (Seleccion("Seleccione una opción: "))
-            {
-                case "1":
-                    AddMoto(motocicletas, clientes);
-                    break;
-                case "2":
-                    MostrarMotos(motocicletas, motocicletasBorradas);
-                    break;
-                case "3":
-                    BuscarMoto(motocicletas);
-                    break;
-                case "4":
-                    BorrarMoto(motocicletas, motocicletasBorradas);
-                    break;
-                case "5":
-                    MotoXLSX(motocicletas);
-                    break;
-                case "6":
-                    ModificarMoto(motocicletas, clientes);
-                    break;
-                case "A":
-                    salir = true;
-                    break;
-                default:
-                    Console.WriteLine("Seleccione una de las anteriores");
-                    break;
-            }
-        } while (!salir);
-    }
-
-    //MENU PROVEEDORES
-    private void Proveedor(List<Proveedor> proveedores)
-    {
-        //Console.Clear();
-        bool salir = false;
-        do
-        {
-            MenuProveedor();
-            switch (Seleccion("Seleccione una opción: "))
-            {
-                case "1":
-                    MostrarProveedores(proveedores);
-                    break;
-                case "2":
-                    RealizarRemesa(proveedores);
-                    break;
-                case "3":
-                    VerDeuda(proveedores);
-                    break;
-                case "A":
-                    salir = true;
-                    break;
-                default:
-                    Console.WriteLine("Seleccione una de las anteriores");
-                    break;
-            }
-        } while (!salir);
-    }
-
-    //MENU ORDEN REPARACIÓN
-    private void OrdenReparacion(List<Mecanico> mecanicos, List<Cliente> clientes,
-        List<Motocicleta> motocicletas, List<OrdenReparacion> ordenReparaciones)
-    {
-        //Console.Clear();
-        bool salir = false;
-        do
-        {
-            MenuOrdenReparacion();
-            switch (Seleccion("Seleccione una opción: "))
-            {
-                case "1":
-                    GenerarOrden(mecanicos, clientes, motocicletas, ordenReparaciones);
-                    break;
-                case "2":
-                    VisualizarOrden(ordenReparaciones);
-                    break;
-                case "A":
-                    salir = true;
-                    break;
-                default:
-                    Console.WriteLine("Seleccione una de las anteriores");
-                    break;
-            }
-        } while (!salir);
-    }
-
-    private void GenerarOrden(List<Mecanico> mecanicos, List<Cliente> clientes,
-        List<Motocicleta> motocicletas, List<OrdenReparacion> ordenReparaciones)
-    {
-        //Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine();
-        Console.WriteLine("GENERAR ORDEN DE REPARACIÓN");
+        Console.WriteLine("        *------ iGarage ------*       ");
         Console.WriteLine();
-        int orden = ordenReparaciones.Count + 1;
-        int numeroMoto = BuscarMoto(motocicletas);
-        int numeroMecanico = seleccionarMecanico(mecanicos);
-        Motocicleta moto = motocicletas[numeroMoto];
-        Cliente cliente = motocicletas[numeroMoto].GetCliente();
-        Mecanico mecanico = mecanicos[numeroMecanico];
-        Console.Write("Describa el problema idicado por el cliente: ");
-        string problema = Console.ReadLine();
-        OrdenReparacion tramitarOrden = new OrdenReparacion(orden, cliente, mecanico,
-            moto, problema);
-        ordenReparaciones.Add(tramitarOrden);
-    }
-
-    private void VisualizarOrden(List<OrdenReparacion> ordenReparaciones)
-    {
-        foreach (OrdenReparacion o in ordenReparaciones)
-        {
-            Console.WriteLine(o);
-        }
-    }
-
-    private int seleccionarMecanico(List<Mecanico>mecanicos)
-    {
-        Console.WriteLine("-------MECANICOS-------");
-        for (int i = 0; i < mecanicos.Count; i++)
-        {
-            Console.Write((i + 1) + ".- ");
-            Console.WriteLine(mecanicos[i]);
-        }
-        Console.Write("Seleccione un mecanico: ");
-        int numeroMecanico = Convert.ToInt32(Console.ReadLine());
+        Console.ForegroundColor = ConsoleColor.Black;
+        Console.WriteLine("1.- MOTOCICLETAS.");
+        Console.WriteLine("2.- GESTIÓN PROVEEDORES.");
+        Console.WriteLine("3.- ORDEN DE REPARACIÓN.");
+        Console.WriteLine("4.- MOSTRAR CLIENTES.");
+        Console.WriteLine("E.- SALIR.");
         Console.WriteLine();
-        return numeroMecanico - 1;
     }
-
 
     private string Seleccion(string aviso)
     {
@@ -268,84 +96,71 @@ class GestorTaller
             Console.Write(" ");
             x++;
         }
-
+        Console.ForegroundColor = ConsoleColor.Red;
         for (int i = 0; i < cadena.Length; i++)
             Console.Write(caracter);
-        
+
         salir = true;
         return salir;
     }
 
-    private void MostrarProveedores(List<Proveedor> proveedores)
+    //LOGICA MOTOCICLETAS
+    private void MenuMoto()
     {
-        //Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine();
-        Console.WriteLine("MOSTRAR PROVEEDORES");
+        Console.WriteLine("           * MOTOCICLETAS *      ");
         Console.WriteLine();
-        int i = 0;
-        foreach (Proveedor p in proveedores)
-        {
-            i += 1;
-            Console.Write(i + ".-");
-            Console.WriteLine(p);
-        }
+        Console.WriteLine("1.- NUEVA MOTOCICLETA");
+        Console.WriteLine("2.- MOSTRAR TODAS LAS MOTOCICLETAS");
+        Console.WriteLine("3.- BUSCAR MOTOCICLETA");
+        Console.WriteLine("4.- BORRAR MOTOCICLETA");
+        Console.WriteLine("5.- GENERAR LISTADO DE MOTOCICLETAS - CSV");
+        Console.WriteLine("6.- MODIFICACIÓN DATOS");
+        Console.WriteLine("A.- Menú iGarage");
+        Console.WriteLine();
     }
 
-    private void RealizarRemesa(List<Proveedor> proveedores)
+    private void Motocicleta(List<Motocicleta> motocicletas, List<Cliente> clientes,
+        List<Motocicleta> motocicletasBorradas)
     {
         //Console.Clear();
-        Console.WriteLine();
-        Console.WriteLine("PREPARAR REMESA");
-        Console.WriteLine();
-        float importe;
         bool salir = false;
-        string aux, confirmacion;
-        Proveedor[] auxiliarRemesa;
         do
         {
-            Console.Write("Nombre del proveedor a incluir:");
-            aux = Console.ReadLine();
-            for (int i = 0; i < proveedores.Count; i++)
+            MenuMoto();
+            switch (Seleccion("Seleccione una opción: "))
             {
-                if (proveedores[i].GetNombreCompleto().Contains(aux))
-                {
-                    Console.WriteLine(proveedores[i]);
-                    Console.Write("¿Desea incluir este proveedor? (S/N): ");
-                    confirmacion = Console.ReadLine().ToUpper();
-                    if (confirmacion == "S")
-                    {
-                        Console.Write("Importe: ");
-                        importe = Convert.ToSingle(Console.ReadLine());
-                        //auxiliarRemesa[i].NombreCompleto = proveedores[i].GetNombreCompleto(); 
-                    }
-                }
+                case "1":
+                    AddMoto(motocicletas, clientes);
+                    break;
+                case "2":
+                    MostrarMotos(motocicletas, motocicletasBorradas);
+                    break;
+                case "3":
+                    BuscarMoto(motocicletas);
+                    break;
+                case "4":
+                    BorrarMoto(motocicletas, motocicletasBorradas);
+                    break;
+                case "5":
+                    MotoCSV(motocicletas);
+                    break;
+                case "6":
+                    ModificarMoto(motocicletas, clientes);
+                    break;
+                case "A":
+                    salir = true;
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una de las anteriores");
+                    break;
             }
         } while (!salir);
     }
 
-    private void VerDeuda(List<Proveedor> proveedores)
-    {
-        bool deuda = false;
-        for (int i = 0; i < proveedores.Count; i++)
-        {
-            if (proveedores[i].Deuda != 0)
-            {
-                deuda = true;
-                Console.Write((i + 1) + ".- ");
-                Console.Write(proveedores[i].GetNombreCompleto() + ": ");
-                Console.Write(proveedores[i].Deuda + "€");
-                Console.WriteLine();
-            }
-        }
-
-        if (!deuda)
-        {
-            Console.WriteLine("No existen deudas actualmente");
-        }
-    }
-
     private static void AddMoto(List<Motocicleta> motocicletas,
-        List<Cliente> clientes)
+    List<Cliente> clientes)
     {
         //Console.Clear();
         Console.WriteLine();
@@ -354,7 +169,7 @@ class GestorTaller
         bool competicion = false;
         bool aceptado = false;
         string matricula = "";
-       
+
         Console.Write("Matricula: ");
         matricula = Console.ReadLine().ToUpper();
         matricula = matricula.Replace(" ", String.Empty);
@@ -473,64 +288,6 @@ class GestorTaller
         }
     }
 
-    private void Mostrar(List<Motocicleta> motocicletas)
-    {
-        int i = 0;
-        foreach (Motocicleta m in motocicletas)
-        {
-            i += 1;
-            Console.Write(i + ".- ");
-            Console.WriteLine(m);
-        }
-    }
-
-    private void MostrarCliente(List<Cliente> clientes)
-    {
-        //Console.Clear();
-        Console.WriteLine();
-        Console.WriteLine("CLIENTES");
-        Console.WriteLine();
-        Console.ForegroundColor = ConsoleColor.DarkCyan;
-        foreach (Cliente c in clientes)
-        {
-            Console.WriteLine(c);
-        }
-        Console.ForegroundColor = ConsoleColor.Black;
-    }
-
-    private void MostrarMotos(List<Motocicleta> motocicletas,
-        List<Motocicleta> motocicletasBorradas)
-    {
-        //Console.Clear();
-        Console.WriteLine();
-        Console.WriteLine("MOSTRAR MOTOS");
-        Console.WriteLine();
-        int i = 0;
-        Console.Write("¿Visualizar motos borras? (S/N)? ");
-        string deseoVisualizar = Console.ReadLine().ToUpper();
-        Console.ForegroundColor = ConsoleColor.DarkGreen;
-
-        if (deseoVisualizar == "S")
-        {
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Mostrar(motocicletas);
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Mostrar(motocicletasBorradas);
-            Console.ForegroundColor = ConsoleColor.Black;
-        }
-        else
-        {
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            foreach (Motocicleta m in motocicletas)
-            {
-                i += 1;
-                Console.Write(i + ".- ");
-                Console.WriteLine(m);
-            }
-            Console.ForegroundColor = ConsoleColor.Black;
-        }
-    }
-
     private int BuscarMoto(List<Motocicleta> motocicletas)
     {
         //Console.Clear();
@@ -560,7 +317,7 @@ class GestorTaller
                         Console.WriteLine(motocicletas[i].GetCliente());
                         return i;
                     }
-                    else if(conf == "N")
+                    else if (conf == "N")
                     {
                         Console.WriteLine(motocicletas[i]);
                         return i;
@@ -613,17 +370,17 @@ class GestorTaller
         {
             Console.WriteLine("Acción no completada.");
         }
-       
+
 
     }
 
-    public void MotoXLSX(List<Motocicleta> myListMotos)
+    private void MotoCSV(List<Motocicleta> myListMotos)
     {
         try
         {
             StreamWriter datosEscribir = File.CreateText("MotosBBDD.csv");
             datosEscribir.Write("MATRICULA;MODELO;MARCA;BASTIDOR;CILINDRADA;" +
-                "VERSION;KW;CODIGO MOTOR; KM" + "\n") ;
+                "VERSION;KW;CODIGO MOTOR; KM" + "\n");
             foreach (Motocicleta m in myListMotos)
             {
                 datosEscribir.Write(m.GetMatricula() + ";" + m.GetModelo() + ";"
@@ -647,7 +404,7 @@ class GestorTaller
         }
     }
 
-        private void ModificarMoto(List<Motocicleta> motocicletas, List<Cliente> clientes)
+    private void ModificarMoto(List<Motocicleta> motocicletas, List<Cliente> clientes)
     {
         //Console.Clear();
         Console.WriteLine();
@@ -732,7 +489,7 @@ class GestorTaller
                 Console.WriteLine("Acción no completada, " + ex.Message);
             }
         }
-        else if (campoModificar == "codigomotor" || campoModificar == "codigo motor" )
+        else if (campoModificar == "codigomotor" || campoModificar == "codigo motor")
         {
             Console.Write("Nuevo código: ");
             aux = Console.ReadLine();
@@ -777,5 +534,260 @@ class GestorTaller
                 clienteAux.SetNombreCompleto(aux);
             }
         }
+    }
+
+    private void MostrarMotos(List<Motocicleta> motocicletas,
+    List<Motocicleta> motocicletasBorradas)
+    {
+        //Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine("MOSTRAR MOTOS");
+        Console.WriteLine();
+        int i = 0;
+        Console.Write("¿Visualizar motos borras? (S/N)? ");
+        string deseoVisualizar = Console.ReadLine().ToUpper();
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
+
+        if (deseoVisualizar == "S")
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Mostrar(motocicletas);
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Mostrar(motocicletasBorradas);
+            Console.ForegroundColor = ConsoleColor.Black;
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            foreach (Motocicleta m in motocicletas)
+            {
+                i += 1;
+                Console.Write(i + ".- ");
+                Console.WriteLine(m);
+            }
+            Console.ForegroundColor = ConsoleColor.Black;
+        }
+    }
+
+    //LOGICA PROVEEDORES
+    private void MenuProveedor()
+    {
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.WriteLine();
+        Console.WriteLine("           * PROVEEDORES *      ");
+        Console.WriteLine();
+        Console.WriteLine("1.- VER PROVEEDORES");
+        Console.WriteLine("2.- REALIZAR REMESA XML");
+        Console.WriteLine("3.- VER DEUDAS");
+        Console.WriteLine("A.- Menú iGarage");
+        Console.WriteLine();
+        
+    }
+
+    private void Proveedor(List<Proveedor> proveedores)
+    {
+        //Console.Clear();
+        bool salir = false;
+        do
+        {
+            MenuProveedor();
+            switch (Seleccion("Seleccione una opción: "))
+            {
+                case "1":
+                    MostrarProveedores(proveedores);
+                    break;
+                case "2":
+                    RealizarRemesa(proveedores);
+                    break;
+                case "3":
+                    VerDeuda(proveedores);
+                    break;
+                case "A":
+                    salir = true;
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una de las anteriores");
+                    break;
+            }
+        } while (!salir);
+    }
+
+    private void MostrarProveedores(List<Proveedor> proveedores)
+    {
+        //Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine("MOSTRAR PROVEEDORES");
+        Console.WriteLine();
+        int i = 0;
+        foreach (Proveedor p in proveedores)
+        {
+            i += 1;
+            Console.Write(i + ".-");
+            Console.WriteLine(p);
+        }
+    }
+
+    private void RealizarRemesa(List<Proveedor> proveedores)
+    {
+        //Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine("PREPARAR REMESA");
+        Console.WriteLine();
+        float importe;
+        bool salir = false;
+        string aux, confirmacion;
+        Proveedor[] auxiliarRemesa;
+        do
+        {
+            Console.Write("Nombre del proveedor a incluir:");
+            aux = Console.ReadLine();
+            for (int i = 0; i < proveedores.Count; i++)
+            {
+                if (proveedores[i].GetNombreCompleto().Contains(aux))
+                {
+                    Console.WriteLine(proveedores[i]);
+                    Console.Write("¿Desea incluir este proveedor? (S/N): ");
+                    confirmacion = Console.ReadLine().ToUpper();
+                    if (confirmacion == "S")
+                    {
+                        Console.Write("Importe: ");
+                        importe = Convert.ToSingle(Console.ReadLine());
+                        //auxiliarRemesa[i].NombreCompleto = proveedores[i].GetNombreCompleto(); 
+                    }
+                }
+            }
+        } while (!salir);
+    }
+
+    private void VerDeuda(List<Proveedor> proveedores)
+    {
+        bool deuda = false;
+        for (int i = 0; i < proveedores.Count; i++)
+        {
+            if (proveedores[i].Deuda != 0)
+            {
+                deuda = true;
+                Console.Write((i + 1) + ".- ");
+                Console.Write(proveedores[i].GetNombreCompleto() + ": ");
+                Console.Write(proveedores[i].Deuda + "€");
+                Console.WriteLine();
+            }
+        }
+
+        if (!deuda)
+        {
+            Console.WriteLine("No existen deudas actualmente");
+        }
+    }
+
+    private void Mostrar(List<Motocicleta> motocicletas)
+    {
+        int i = 0;
+        foreach (Motocicleta m in motocicletas)
+        {
+            i += 1;
+            Console.Write(i + ".- ");
+            Console.WriteLine(m);
+        }
+    }
+
+    //LOGICA ORDEN REPARACION
+    private void MenuOrdenReparacion()
+    {
+        Console.ForegroundColor = ConsoleColor.DarkBlue;
+        Console.WriteLine();
+        Console.WriteLine("           * ORDEN DE REPARACIÓN *      ");
+        Console.WriteLine();
+        Console.WriteLine("1.- GENERAR ORDEN - PDF");
+        Console.WriteLine("2.- VISUALIZAR ORDENES");
+        Console.WriteLine("A.- Menú iGarage");
+        Console.WriteLine();
+    }
+
+    private void GenerarOrden(List<Mecanico> mecanicos, List<Cliente> clientes,
+        List<Motocicleta> motocicletas, List<OrdenReparacion> ordenReparaciones)
+    {
+        //Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine("GENERAR ORDEN DE REPARACIÓN");
+        Console.WriteLine();
+        int orden = ordenReparaciones.Count + 1;
+        int numeroMoto = BuscarMoto(motocicletas);
+        int numeroMecanico = seleccionarMecanico(mecanicos);
+        Motocicleta moto = motocicletas[numeroMoto];
+        Cliente cliente = motocicletas[numeroMoto].GetCliente();
+        Mecanico mecanico = mecanicos[numeroMecanico];
+        Console.Write("Describa el problema idicado por el cliente: ");
+        string problema = Console.ReadLine();
+        OrdenReparacion tramitarOrden = new OrdenReparacion(orden, cliente, mecanico,
+            moto, problema);
+        ordenReparaciones.Add(tramitarOrden);
+        string nombreOrden = DateTime.Today.ToString("ddMMyy" + orden);
+        GestorPDF g = new GestorPDF(moto,mecanico,cliente,nombreOrden,problema,orden);
+        Console.WriteLine();
+        Console.WriteLine("GENERADA ORDEN EN PDF..");
+    }
+
+    private void VisualizarOrden(List<OrdenReparacion> ordenReparaciones)
+    {
+        foreach (OrdenReparacion o in ordenReparaciones)
+        {
+            Console.WriteLine(o);
+        }
+    }
+
+    private int seleccionarMecanico(List<Mecanico> mecanicos)
+    {
+        Console.WriteLine("-------MECANICOS-------");
+        for (int i = 0; i < mecanicos.Count; i++)
+        {
+            Console.Write((i + 1) + ".- ");
+            Console.WriteLine(mecanicos[i]);
+        }
+        Console.Write("Seleccione un mecanico: ");
+        int numeroMecanico = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine();
+        return numeroMecanico - 1;
+    }
+
+    private void OrdenReparacion(List<Mecanico> mecanicos, List<Cliente> clientes,
+    List<Motocicleta> motocicletas, List<OrdenReparacion> ordenReparaciones)
+    {
+        //Console.Clear();
+        bool salir = false;
+        do
+        {
+            MenuOrdenReparacion();
+            switch (Seleccion("Seleccione una opción: "))
+            {
+                case "1":
+                    GenerarOrden(mecanicos, clientes, motocicletas, ordenReparaciones);
+                    break;
+                case "2":
+                    VisualizarOrden(ordenReparaciones);
+                    break;
+                case "A":
+                    salir = true;
+                    break;
+                default:
+                    Console.WriteLine("Seleccione una de las anteriores");
+                    break;
+            }
+        } while (!salir);
+    }
+
+    //LOGICA CLIENTES
+    private void MostrarCliente(List<Cliente> clientes)
+    {
+        //Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine("CLIENTES");
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.DarkCyan;
+        foreach (Cliente c in clientes)
+        {
+            Console.WriteLine(c);
+        }
+        Console.ForegroundColor = ConsoleColor.Black;
     }
 }

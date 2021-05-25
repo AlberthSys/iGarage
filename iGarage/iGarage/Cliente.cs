@@ -1,4 +1,6 @@
-﻿class Cliente : Persona
+﻿using System;
+
+class Cliente : Persona, IComparable<Cliente>
 {
     private int telefono;
     private bool competicion;
@@ -35,5 +37,10 @@
     {
         return base.ToString() + ("Teléfono: " + telefono) + "\n" +
             (competicion ? "Racing" : "Confort") + "\n";
+    }
+
+    public int CompareTo(Cliente c)
+    {
+        return this.GetNombreCompleto().CompareTo(c.GetNombreCompleto());
     }
 }
