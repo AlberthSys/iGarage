@@ -58,7 +58,7 @@ class GestorTaller
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine();
-        Console.WriteLine("        *------ iGarage ------*       ");
+        Console.WriteLine("*-------- iGarage --------*");
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.Black;
         Console.WriteLine("1.- MOTOCICLETAS.");

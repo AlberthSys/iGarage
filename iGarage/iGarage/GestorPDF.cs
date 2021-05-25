@@ -26,7 +26,12 @@ class GestorPDF
         Font fontTITULO = new Font(b, 25, 1, BaseColor.RED);
         Font fontOrden = new Font(b, 12, 1, BaseColor.BLUE);
         Font fontProblema = new Font(b, 10, 1, BaseColor.BLACK);
-
+        iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance("logo.jpg");
+        imagen.BorderWidth = 0;
+        imagen.Alignment = Element.ALIGN_CENTER;
+        float percentage = 0.0f;
+        percentage = 150 / imagen.Width;
+        imagen.ScalePercent(percentage * 100);
         string iGarage = "iGarage";
         d.Add(new Paragraph("                                     " + iGarage + "\n", fontTITULO));
         d.Add(new Paragraph("                                     " +"-----------" + "\n", fontTITULO));
@@ -44,6 +49,7 @@ class GestorPDF
         d.Add(new Paragraph("\n"));
         d.Add(new Paragraph("PROBLEMA" + "\n", fontTIT));
         d.Add(new Paragraph(problema, fontProblema));
+        d.Add(imagen);
         d.Close();
         p.Close();
     }
