@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-
+using System.Xml;
+//ALBERTO BAENA CREMONINI
 class GestorTaller
 {
     //LOGICA PRINCIPAL
@@ -184,8 +185,6 @@ class GestorTaller
         }
         if (!aceptado)
         {
-
-
             Console.Write("Modelo: ");
             string modelo = Console.ReadLine().ToUpper();
             modelo = modelo.Replace(" ", String.Empty);
@@ -349,7 +348,6 @@ class GestorTaller
     private void BorrarMoto(List<Motocicleta> motocicletas,
         List<Motocicleta> motocicletasBorradas)
     {
-
         //Console.Clear();
         Console.WriteLine();
         Console.WriteLine("BORRAR DATOS");
@@ -386,9 +384,7 @@ class GestorTaller
                 datosEscribir.Write(m.GetMatricula() + ";" + m.GetModelo() + ";"
                     + m.GetMarca() + ";" + m.GetBastidor() + ";" + m.GetCilindrada() + ";"
                     + m.GetVersion() + ";" + m.GetKw() + ";" + m.GetCodigoMotor() + ";"
-                    + m.GetKm() + "\n" /*+ ";" + m.GetCliente().GetNombreCompleto() + ";"
-                    + m.GetCliente().GetDireccion() + ";" + m.GetCliente().GetDocID() + ";"
-                    + m.GetCliente().GetCompeticion() + ";" + m.GetCliente().GetTelefono() + "\n"*/);
+                    + m.GetKm() + "\n");
             }
             datosEscribir.Close();
             Console.WriteLine();
@@ -636,14 +632,15 @@ class GestorTaller
         float importe;
         bool salir = false;
         string aux, confirmacion;
-        Proveedor[] auxiliarRemesa;
+        List<Proveedor> proveedoresAPagar = new List<Proveedor>();
+        Proveedor proveedorPago;
         do
         {
             Console.Write("Nombre del proveedor a incluir:");
-            aux = Console.ReadLine();
+            aux = Console.ReadLine().ToUpper();
             for (int i = 0; i < proveedores.Count; i++)
             {
-                if (proveedores[i].GetNombreCompleto().Contains(aux))
+                if (proveedores[i].GetNombreCompleto().ToUpper().Contains(aux))
                 {
                     Console.WriteLine(proveedores[i]);
                     Console.Write("¿Desea incluir este proveedor? (S/N): ");
@@ -652,11 +649,53 @@ class GestorTaller
                     {
                         Console.Write("Importe: ");
                         importe = Convert.ToSingle(Console.ReadLine());
-                        //auxiliarRemesa[i].NombreCompleto = proveedores[i].GetNombreCompleto(); 
+                        proveedorPago = new Proveedor(proveedores[i].GetNombreCompleto(),
+                            proveedores[i].GetDireccion(), proveedores[i].GetDocID(),
+                            proveedores[i].NumeroCuenta, importe);
+                        proveedoresAPagar.Add(proveedorPago);
                     }
                 }
             }
+            Console.WriteLine("¿Desea finalizar el proceso?: S/N");
+            string salirS = Console.ReadLine().ToUpper();
+            if (salirS == "S")
+            {
+                remesa(proveedoresAPagar);
+                salir = true;
+            }
         } while (!salir);
+    }
+
+    private void remesa(List<Proveedor> proveedorPagar)
+    {
+        XmlWriter writer = null;
+        try
+        {
+            Console.Write("Nombre de la remesa: ");
+            string nombreRemesa = Console.ReadLine() + ".xml";
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.IndentChars = ("\t");
+            settings.OmitXmlDeclaration = true;
+            writer = XmlWriter.Create(nombreRemesa, settings);
+            foreach (Proveedor p in proveedorPagar)
+            {
+                writer.WriteStartElement(p.GetNombreCompleto());
+                writer.WriteElementString(p.NumeroCuenta, Convert.ToString(p.Deuda),
+                    p.NumeroCuenta);
+                writer.WriteEndElement();
+            }
+            writer.Flush();
+            writer.Close();
+        }
+        catch (ArgumentException)
+        {
+            Console.WriteLine("Error en la generación del fichero.Pte de revisión");
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
     private void VerDeuda(List<Proveedor> proveedores)

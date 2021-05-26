@@ -15,8 +15,6 @@ class Proveedor: Persona
         this.deuda = deuda;
     }
 
-    //public string NumeroCuenta { get; set; }
-
     public string NumeroCuenta
     {
         get => numeroCuenta;
