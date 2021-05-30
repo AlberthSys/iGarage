@@ -108,7 +108,7 @@ class GestorTaller
     //LOGICA MOTOCICLETAS
     private void MenuMoto()
     {
-        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.ForegroundColor = ConsoleColor.DarkMagenta;
         Console.WriteLine();
         Console.WriteLine("           * MOTOCICLETAS *      ");
         Console.WriteLine();
@@ -125,7 +125,6 @@ class GestorTaller
     private void Motocicleta(List<Motocicleta> motocicletas, List<Cliente> clientes,
         List<Motocicleta> motocicletasBorradas)
     {
-        //Console.Clear();
         bool salir = false;
         do
         {
@@ -163,7 +162,6 @@ class GestorTaller
     private static void AddMoto(List<Motocicleta> motocicletas,
     List<Cliente> clientes)
     {
-        //Console.Clear();
         Console.WriteLine();
         Console.WriteLine("AÑADIR MOTOCICLETA");
         Console.WriteLine();
@@ -248,7 +246,6 @@ class GestorTaller
             }
             else if (op == "2")
             {
-                //Console.Clear();
                 bool encontrado = false;
                 Console.WriteLine();
                 Console.WriteLine("BUSQUEDA CLIENTE");
@@ -289,7 +286,6 @@ class GestorTaller
 
     private int BuscarMoto(List<Motocicleta> motocicletas)
     {
-        //Console.Clear();
         bool buscar = false;
         Console.WriteLine();
         Console.WriteLine("BUSQUEDA MOTO");
@@ -348,7 +344,6 @@ class GestorTaller
     private void BorrarMoto(List<Motocicleta> motocicletas,
         List<Motocicleta> motocicletasBorradas)
     {
-        //Console.Clear();
         Console.WriteLine();
         Console.WriteLine("BORRAR DATOS");
         Console.WriteLine();
@@ -368,8 +363,6 @@ class GestorTaller
         {
             Console.WriteLine("Acción no completada.");
         }
-
-
     }
 
     private void MotoCSV(List<Motocicleta> myListMotos)
@@ -402,7 +395,6 @@ class GestorTaller
 
     private void ModificarMoto(List<Motocicleta> motocicletas, List<Cliente> clientes)
     {
-        //Console.Clear();
         Console.WriteLine();
         Console.WriteLine("MODIFICAR DATOS");
         Console.WriteLine();
@@ -535,7 +527,6 @@ class GestorTaller
     private void MostrarMotos(List<Motocicleta> motocicletas,
     List<Motocicleta> motocicletasBorradas)
     {
-        //Console.Clear();
         Console.WriteLine();
         Console.WriteLine("MOSTRAR MOTOS");
         Console.WriteLine();
@@ -582,7 +573,7 @@ class GestorTaller
 
     private void Proveedor(List<Proveedor> proveedores)
     {
-        //Console.Clear();
+        Console.Clear();
         bool salir = false;
         do
         {
@@ -610,7 +601,6 @@ class GestorTaller
 
     private void MostrarProveedores(List<Proveedor> proveedores)
     {
-        //Console.Clear();
         Console.WriteLine();
         Console.WriteLine("MOSTRAR PROVEEDORES");
         Console.WriteLine();
@@ -625,7 +615,6 @@ class GestorTaller
 
     private void RealizarRemesa(List<Proveedor> proveedores)
     {
-        //Console.Clear();
         Console.WriteLine();
         Console.WriteLine("PREPARAR REMESA");
         Console.WriteLine();
@@ -746,25 +735,31 @@ class GestorTaller
     private void GenerarOrden(List<Mecanico> mecanicos, List<Cliente> clientes,
         List<Motocicleta> motocicletas, List<OrdenReparacion> ordenReparaciones)
     {
-        //Console.Clear();
         Console.WriteLine();
         Console.WriteLine("GENERAR ORDEN DE REPARACIÓN");
         Console.WriteLine();
         int orden = ordenReparaciones.Count + 1;
         int numeroMoto = BuscarMoto(motocicletas);
-        int numeroMecanico = seleccionarMecanico(mecanicos);
-        Motocicleta moto = motocicletas[numeroMoto];
-        Cliente cliente = motocicletas[numeroMoto].GetCliente();
-        Mecanico mecanico = mecanicos[numeroMecanico];
-        Console.Write("Describa el problema idicado por el cliente: ");
-        string problema = Console.ReadLine();
-        OrdenReparacion tramitarOrden = new OrdenReparacion(orden, cliente, mecanico,
-            moto, problema);
-        ordenReparaciones.Add(tramitarOrden);
-        string nombreOrden = DateTime.Today.ToString("ddMMyy" + orden);
-        GestorPDF g = new GestorPDF(moto,mecanico,cliente,nombreOrden,problema,orden);
-        Console.WriteLine();
-        Console.WriteLine("GENERADA ORDEN EN PDF..");
+        if (numeroMoto == -1)
+        {
+            Console.WriteLine("Motocicleta no encontrada, orden no generada...");
+        }
+        else
+        {
+            int numeroMecanico = seleccionarMecanico(mecanicos);
+            Motocicleta moto = motocicletas[numeroMoto];
+            Cliente cliente = motocicletas[numeroMoto].GetCliente();
+            Mecanico mecanico = mecanicos[numeroMecanico];
+            Console.Write("Describa el problema idicado por el cliente: ");
+            string problema = Console.ReadLine();
+            OrdenReparacion tramitarOrden = new OrdenReparacion(orden, cliente, mecanico,
+                moto, problema);
+            ordenReparaciones.Add(tramitarOrden);
+            string nombreOrden = DateTime.Today.ToString("ddMMyy" + orden);
+            GestorPDF g = new GestorPDF(moto, mecanico, cliente, nombreOrden, problema, orden);
+            Console.WriteLine();
+            Console.WriteLine("GENERADA ORDEN EN PDF..");
+        }
     }
 
     private void VisualizarOrden(List<OrdenReparacion> ordenReparaciones)
@@ -792,7 +787,6 @@ class GestorTaller
     private void OrdenReparacion(List<Mecanico> mecanicos, List<Cliente> clientes,
     List<Motocicleta> motocicletas, List<OrdenReparacion> ordenReparaciones)
     {
-        //Console.Clear();
         bool salir = false;
         do
         {
@@ -818,7 +812,6 @@ class GestorTaller
     //LOGICA CLIENTES
     private void MostrarCliente(List<Cliente> clientes)
     {
-        //Console.Clear();
         Console.WriteLine();
         Console.WriteLine("CLIENTES");
         Console.WriteLine();
